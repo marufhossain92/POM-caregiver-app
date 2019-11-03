@@ -1,0 +1,4 @@
+{
+  "mongoURI": "mongodb+srv://maruf123:maruf123@pom-caregiver-puifj.mongodb.net/test?retryWrites=true&w=majority",
+  "jwtSecret": "mysecrettoken"
+}
