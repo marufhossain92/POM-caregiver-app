@@ -58,7 +58,7 @@ const LoginCaregiver = ({ login, isAuthenticated }) => {
           </div>
           <div className='form-check pb-2'>
             <input type='checkbox' className='form-check-input' />
-            <label className='form-check-label' for='exampleCheck'>
+            <label className='form-check-label' htmlFor='exampleCheck'>
               Keep me logged in
             </label>
           </div>

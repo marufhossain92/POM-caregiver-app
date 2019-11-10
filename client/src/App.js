@@ -11,8 +11,10 @@ import LoginCaregiver from "./components/auth/LoginCaregiver";
 import Alert from "./components/layouts/Alert";
 import SignupCaresekeer from "./components/auth/SignupCaresekeer";
 import SignupCaregiver from "./components/auth/SignupCaregiver";
-import SignupCaregiver2 from "./components/auth/SignupCaregiver2";
-import ProfileCaregiver from "./components/profiles/ProfileCaregiver";
+import CreateCaregiverProfile from "./components/profile-forms/CreateCaregiverProfile";
+import EditCaregiverProfile from "./components/profile-forms/EditCaregiverProfile";
+import ProfileCaregivers from "./components/profiles/ProfileCaregivers";
+import ProfileCaregiver from "./components/profile/ProfileCaregiver";
 import PrivateRoute from "./components/routing/PrivateRoute";
 import Services from "./components/pages/Services";
 import About from "./components/pages/About";
@@ -21,6 +23,9 @@ import Help from "./components/pages/Help";
 import Privacy from "./components/pages/Privacy";
 import TermsOfUse from "./components/pages/TermsOfUse";
 import Faq from "./components/pages/Faq";
+import AddEducation from "./components/profile-forms/AddEducation";
+import AddCertification from "./components/profile-forms/AddCertification";
+import CaregiverProfiles from "./components/showProfiles/CaregiverProfiles";
 
 //Redux
 import { Provider } from "react-redux";
@@ -41,48 +46,83 @@ const App = () => {
     <Provider store={store}>
       <Router>
         <Fragment>
-          <Navbar />
-          <Route exact path='/' component={BodyElement} />
-
-          <section className='container'>
-            <Alert />
-            <Switch>
-              <Route
-                exact
-                path='/login-caresekeer'
-                component={LoginCaresekeer}
-              />
-              <Route exact path='/login-caregiver' component={LoginCaregiver} />
-              <Route
-                exact
-                path='/signup-caresekeer'
-                component={SignupCaresekeer}
-              />
-              <Route
-                exact
-                path='/signup-caregiver'
-                component={SignupCaregiver}
-              />
-              <Route
-                exact
-                path='/signup-caregiver2'
-                component={SignupCaregiver2}
-              />
-              <PrivateRoute
-                exact
-                path='/profile-caregiver'
-                component={ProfileCaregiver}
-              />
-            </Switch>
-          </section>
-          <Route exact path='/services' component={Services} />
-          <Route exact path='/about' component={About} />
-          <Route exact path='/contact' component={Contact} />
-          <Route exact path='/help' component={Help} />
-          <Route exact path='/privacy' component={Privacy} />
-          <Route exact path='/terms' component={TermsOfUse} />
-          <Route exact path='/faq' component={Faq} />
-          <Footer />
+          <div className='App'>
+            <Navbar />
+            <Route exact path='/' component={BodyElement} />
+            <div className='container'>
+              <Alert />
+              <Switch>
+                <Route
+                  exact
+                  path='/login-caresekeer'
+                  component={LoginCaresekeer}
+                />
+                <Route
+                  exact
+                  path='/caregiver-profile'
+                  component={ProfileCaregivers}
+                />
+                <Route
+                  exact
+                  path='/profile-caregiver/:id'
+                  component={ProfileCaregiver}
+                />
+                <Route
+                  exact
+                  path='/caregiver-profiles'
+                  component={CaregiverProfiles}
+                />
+                <Route
+                  exact
+                  path='/login-caregiver'
+                  component={LoginCaregiver}
+                />
+                <Route
+                  exact
+                  path='/signup-caresekeer'
+                  component={SignupCaresekeer}
+                />
+                <Route
+                  exact
+                  path='/signup-caregiver'
+                  component={SignupCaregiver}
+                />
+                <PrivateRoute
+                  exact
+                  path='/create-caregiver-profile'
+                  component={CreateCaregiverProfile}
+                />
+                <PrivateRoute
+                  exact
+                  path='/edit-caregiver-profile'
+                  component={EditCaregiverProfile}
+                />
+                <PrivateRoute
+                  exact
+                  path='/profile-caregiver'
+                  component={ProfileCaregiver}
+                />
+                <PrivateRoute
+                  exact
+                  path='/add-caregiver-education'
+                  component={AddEducation}
+                />
+                <PrivateRoute
+                  exact
+                  path='/add-caregiver-certification'
+                  component={AddCertification}
+                />
+              </Switch>
+            </div>
+            <Route exact path='/services' component={Services} />
+            <Route exact path='/about' component={About} />
+            <Route exact path='/contact' component={Contact} />
+            <Route exact path='/help' component={Help} />
+            <Route exact path='/privacy' component={Privacy} />
+            <Route exact path='/terms' component={TermsOfUse} />
+            <Route exact path='/faq' component={Faq} />
+            <Footer />
+          </div>
         </Fragment>
       </Router>
     </Provider>

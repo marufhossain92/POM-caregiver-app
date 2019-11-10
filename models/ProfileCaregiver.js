@@ -3,7 +3,9 @@ const mongoose = require("mongoose");
 const ProfileCaregiverSchema = new mongoose.Schema({
   user: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "user"
+    ref: "user",
+    index: true,
+    required: true
   },
   hourlywage: {
     type: String,
@@ -23,6 +25,10 @@ const ProfileCaregiverSchema = new mongoose.Schema({
   },
   languages: {
     type: [String],
+    required: true
+  },
+  transportation: {
+    type: String,
     required: true
   },
   education: [
@@ -57,10 +63,6 @@ const ProfileCaregiverSchema = new mongoose.Schema({
       }
     }
   ],
-  transportation: {
-    type: Boolean,
-    required: true
-  },
   date: {
     type: Date,
     default: Date.now

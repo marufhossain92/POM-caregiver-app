@@ -15,19 +15,19 @@ const Navbar = ({ auth: { isAuthenticated, loading }, logout }) => {
     <div className='collapse navbar-collapse' id='navbarSupportedContent'>
       <ul className='navbar-nav mr-auto'>
         <li className='nav-item active'>
-          <a className='nav-link' href='/'>
+          <Link className='nav-link' to='/'>
             Home <span className='sr-only'>(current)</span>
-          </a>
+          </Link>
         </li>
         <li className='nav-item active'>
-          <a className='nav-link' href='/services'>
+          <Link className='nav-link' to='/services'>
             Our Services
-          </a>
+          </Link>
         </li>
-        <li className='nav-item dropdown'>
-          <a
+        <li className='nav-item dropdown active'>
+          <Link
             className='nav-link dropdown-toggle'
-            href='#'
+            to='/'
             id='navbarDropdown'
             role='button'
             data-toggle='dropdown'
@@ -35,28 +35,28 @@ const Navbar = ({ auth: { isAuthenticated, loading }, logout }) => {
             aria-expanded='false'
           >
             Profile
-          </a>
+          </Link>
           <div className='dropdown-menu' aria-labelledby='navbarDropdown'>
-            <a className='dropdown-item text-dark' href='#'>
+            <Link className='dropdown-item text-dark' to='/'>
               Edit Profile
-            </a>
-            <a className='dropdown-item text-dark' href='#'>
+            </Link>
+            <Link className='dropdown-item text-dark' to='/'>
               Edit Senior Profile
-            </a>
-            <a className='dropdown-item text-dark' href='#'>
+            </Link>
+            <Link className='dropdown-item text-dark' to='/'>
               Settings
-            </a>
-            <a className='dropdown-item text-dark' href='#'>
+            </Link>
+            <Link className='dropdown-item text-dark' to='/'>
               Card & Payments
-            </a>
+            </Link>
             <div className='dropdown-divider'></div>
-            <a
+            <Link
               onClick={logout}
               className='dropdown-item text-dark'
-              href='/login-caregiver'
+              to='/login-caregiver'
             >
               Logout
-            </a>
+            </Link>
           </div>
         </li>
       </ul>

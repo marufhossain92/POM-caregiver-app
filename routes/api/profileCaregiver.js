@@ -1,4 +1,5 @@
 const express = require("express");
+const mongoose = require("mongoose");
 const router = express.Router();
 const auth = require("../../middleware/auth");
 const { check, validationResult } = require("express-validator");
@@ -6,10 +7,53 @@ const { check, validationResult } = require("express-validator");
 const ProfileCaregiver = require("../../models/ProfileCaregiver");
 const Caregiver = require("../../models/Caregiver");
 
+//@route   Get api/profile-caregiver
+//@desc    Get all caregiver's profile
+//@access  Public
+router.get("/", async (req, res) => {
+  try {
+    const profileCaregivers = await ProfileCaregiver.find().populate("user", [
+      "name",
+      "avatar"
+    ]);
+    res.json(profileCaregivers);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send("Server Error");
+  }
+});
+
+//@route   Get api/profile-caregiver/user/:user_id
+//@desc    Get caregiver's profile by user ID
+//@access  Public
+router.get("/user/:user_id", async (req, res) => {
+  console.log(req.params);
+  try {
+    const profileCaregiver = await ProfileCaregiver.findOne({
+      user: req.params.user_id
+    }).populate({
+      path: "user",
+      model: "user"
+    });
+
+    if (!profileCaregiver)
+      return res.status(400).json({ msg: "Profile not found" });
+
+    res.json(profileCaregiver);
+  } catch (err) {
+    console.error(err.message);
+    if (err.kind == "ObjectId") {
+      return res.status(400).json({ msg: "Profile not found" });
+    }
+    res.status(500).send("Server Error");
+  }
+});
+
 //@route   GET api/profile-caregiver/me
 //@desc    Get current caregiver's profile
 //@access  Private
 router.get("/me", auth, async (req, res) => {
+  console.log(req.user);
   try {
     const profileCaregiver = await ProfileCaregiver.findOne({
       user: req.user.id
@@ -34,10 +78,22 @@ router.post(
   [
     auth,
     [
-      check("location", "Location is required")
+      check("hourlywage", "Hourly wage is required")
+        .not()
+        .isEmpty(),
+      check("experience", "Experience is required")
+        .not()
+        .isEmpty(),
+      check("services", "Services are required")
         .not()
         .isEmpty(),
       check("skills", "Skills are required")
+        .not()
+        .isEmpty(),
+      check("languages", "Languages are required")
+        .not()
+        .isEmpty(),
+      check("transportation", "Transportation is required")
         .not()
         .isEmpty()
     ]
@@ -109,56 +165,19 @@ router.post(
   }
 );
 
-//@route   Get api/profile-caregiver
-//@desc    Get all caregiver's profile
-//@access  Public
-router.get("/", async (req, res) => {
-  try {
-    const profileCaregivers = await ProfileCaregiver.find().populate("user", [
-      "name",
-      "avatar"
-    ]);
-    res.json(profileCaregivers);
-  } catch (err) {
-    console.error(err.message);
-    res.status(500).send("Server Error");
-  }
-});
-
-//@route   Get api/profile-caregiver/user/:user_id
-//@desc    Get caregiver's profile by user ID
-//@access  Public
-router.get("/user/:user_id", async (req, res) => {
-  try {
-    const profileCaregiver = await ProfileCaregiver.findOne({
-      user: req.params.user_id
-    }).populate("user", ["name", "avatar"]);
-
-    if (!profileCaregiver)
-      return res.status(400).json({ msg: "Profile not found" });
-    res.json(profileCaregiver);
-  } catch (err) {
-    console.error(err.message);
-
-    if (err.kind == "ObjectId") {
-      return res.status(400).json({ msg: "Profile not found" });
-    }
-    res.status(500).send("Server Error");
-  }
-});
-
 //@route   DELETE api/profile-caregiver
 //@desc    Delete profile and user
 //@access  Private
 router.delete("/", auth, async (req, res) => {
   try {
     //Remove profile
-    await ProfileCaregiver.findByIdAndRemove({
+    await ProfileCaregiver.findByOneAndRemove({
+      //.findByIdAndRemove
       user: req.user.id
     });
     //Remove user
-    await Caregiver.findByIdAndRemove({ user_id: req.user.id }); //Problem: Cast to ObjectId failed for value "{ user: '5dba7b2f1570c4298c67fb2a' }" at path "_id" for model "profileCaregiver"
-
+    await Caregiver.findByOneAndRemove({ _id: req.user.id }); //Problem: Cast to ObjectId failed for value "{ user: '5dba7b2f1570c4298c67fb2a' }" at path "_id" for model "profileCaregiver"
+    //.findByIdAndRemove   //user_id: req.user.id
     res.json({ msg: "User deleted" });
   } catch (err) {
     console.error(err.message);

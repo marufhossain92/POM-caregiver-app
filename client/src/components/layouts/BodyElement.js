@@ -1,68 +1,58 @@
-import React from "react";
-import caregiver2 from "../images/caregiver2.jpg"; //This path is used for set background-image in line number 7
+import React, { Fragment } from "react";
+import { Link, Redirect } from "react-router-dom";
+import { connect } from "react-redux";
+import PropTypes from "prop-types";
+//import caregiver2 from "../images/caregiver2.jpg"; //This path is used for set background-image in line number 7
 
-let styles = {
-  //backgroundColor: "dark",
-  //backgroundImage: "url(" + require("../images/caregiver2.jpg") + ")", //import directly from images file
-  backgroundImage: `url(${caregiver2})`
-};
-
-const BodyElement = () => {
+const BodyElement = ({ isAuthenticated }) => {
+  if (isAuthenticated) {
+    return <Redirect to='/profile-caregiver' />;
+  }
   return (
-    <div>
-      <div
-        className='w-responsive text-center mx-auto p-5 mt-0' //className helps bring the whole writing into midle
-        style={styles}
-      >
+    <Fragment>
+      <div className='landing text-center mx-auto p-5 mt-0'>
         <h1>
-          <i className='fab fa-product-hunt' />
-          Peace of mind
+          <i className='fab fa-product-hunt' /> Peace of mind
         </h1>
         <h2 className='font-italic'>
           We truly care about your beloved older one.
         </h2>
-        <section className='landing mt-5 pt-5'>
-          <div className='dark-overlay bg-info text-center mx-auto my-2 w-50 mb-5 mt-2 rounded'>
-            <div className='landing-inner pt-5 mx-auto my-auto'>
+        <section className='mt-5 pt-5'>
+          <div className='bg-info text-center mx-auto w-50 rounded mt-5 pt-5'>
+            <div>
               <h2 className='lead'>
                 <b>Let's get started. Choose an option</b>
               </h2>
-              {/*<div className='btn btn-group'>
-                  <div className='border border-dark rounded mx-auto pl-3 pr-3 pt-3 pb-3'>
-                    <a href='/login' className='btn btn-danger mr-1 pb-2'>
-                      I'm a Care Seeker
-                    </a>
-                  </div>
-                  <div className='border border-dark rounded mx-auto pl-3 pr-3 pt-3 pb-3 ml-3'>
-                    <a
-                      href='/login-caregiver'
-                      className='btn btn-danger ml-1 pt-2'
-                    >
-                      I'm a Caregiver
-                    </a>
-                  </div>
-                </div>*/}
+
               <div>
-                <a
-                  href='/login-caresekeer'
+                <Link
+                  to='/caregiver-profiles'
                   className='btn btn-danger mr-1 pb-2'
                 >
                   I'm a Care Seeker
-                </a>{" "}
-                <a href='/login-caregiver' className='btn btn-danger ml-1 pt-2'>
+                </Link>{" "}
+                <Link
+                  to='/login-caregiver'
+                  className='btn btn-danger ml-1 pt-2'
+                >
                   I'm a Caregiver
-                </a>
+                </Link>
               </div>
             </div>
-            <div className='blue-square-container'>
-              <div className='blue-square'></div>
-            </div>
-            <p className='my-5 pb-5 pt-5'></p>
+            <p className='my-3 pb-5 pt-3'></p>
           </div>
         </section>
       </div>
-    </div>
+    </Fragment>
   );
 };
 
-export default BodyElement;
+BodyElement.propTypes = {
+  isAuthenticated: PropTypes.bool
+};
+
+const mapStateToProps = state => ({
+  isAuthenticated: state.auth.isAuthenticated
+});
+
+export default connect(mapStateToProps)(BodyElement);
