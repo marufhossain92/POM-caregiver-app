@@ -12,7 +12,8 @@ const BodyElement = ({ isAuthenticated }) => {
     <Fragment>
       <div className='landing text-center mx-auto p-5 mt-0'>
         <h1>
-          <i className='fab fa-product-hunt' /> Peace of mind
+          <i className='fab fa-product-hunt' />
+          eace of mind
         </h1>
         <h2 className='font-italic'>
           We truly care about your beloved older one.
@@ -33,7 +34,7 @@ const BodyElement = ({ isAuthenticated }) => {
                 </Link>{" "}
                 <Link
                   to='/login-caregiver'
-                  className='btn btn-danger ml-1 pt-2'
+                  className='btn-login btn btn-danger ml-1 pt-2'
                 >
                   I'm a Caregiver
                 </Link>

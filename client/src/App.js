@@ -6,10 +6,10 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import Navbar from "./components/layouts/Navbar";
 import Footer from "./components/layouts/Footer";
 import BodyElement from "./components/layouts/BodyElement";
-import LoginCaresekeer from "./components/auth/LoginCaresekeer";
+import LoginCareseeker from "./components/auth/LoginCareseeker";
 import LoginCaregiver from "./components/auth/LoginCaregiver";
 import Alert from "./components/layouts/Alert";
-import SignupCaresekeer from "./components/auth/SignupCaresekeer";
+import SignupCareseeker from "./components/auth/SignupCareseeker";
 import SignupCaregiver from "./components/auth/SignupCaregiver";
 import CreateCaregiverProfile from "./components/profile-forms/CreateCaregiverProfile";
 import EditCaregiverProfile from "./components/profile-forms/EditCaregiverProfile";
@@ -46,81 +46,81 @@ const App = () => {
     <Provider store={store}>
       <Router>
         <Fragment>
-          <div className='App'>
+          <div className="App">
             <Navbar />
-            <Route exact path='/' component={BodyElement} />
-            <div className='container'>
+            <Route exact path="/" component={BodyElement} />
+            <div className="body-element container">
               <Alert />
               <Switch>
                 <Route
                   exact
-                  path='/login-caresekeer'
-                  component={LoginCaresekeer}
+                  path="/login-careseeker"
+                  component={LoginCareseeker}
                 />
                 <Route
                   exact
-                  path='/caregiver-profile'
+                  path="/caregiver-profile"
                   component={ProfileCaregivers}
                 />
                 <Route
                   exact
-                  path='/profile-caregiver/:id'
+                  path="/profile-caregiver/:id"
                   component={ProfileCaregiver}
                 />
                 <Route
                   exact
-                  path='/caregiver-profiles'
+                  path="/caregiver-profiles"
                   component={CaregiverProfiles}
                 />
                 <Route
                   exact
-                  path='/login-caregiver'
+                  path="/login-caregiver"
                   component={LoginCaregiver}
                 />
                 <Route
                   exact
-                  path='/signup-caresekeer'
-                  component={SignupCaresekeer}
+                  path="/signup-careseeker"
+                  component={SignupCareseeker}
                 />
                 <Route
                   exact
-                  path='/signup-caregiver'
+                  path="/signup-caregiver"
                   component={SignupCaregiver}
                 />
                 <PrivateRoute
                   exact
-                  path='/create-caregiver-profile'
+                  path="/create-caregiver-profile"
                   component={CreateCaregiverProfile}
                 />
                 <PrivateRoute
                   exact
-                  path='/edit-caregiver-profile'
+                  path="/edit-caregiver-profile"
                   component={EditCaregiverProfile}
                 />
                 <PrivateRoute
                   exact
-                  path='/profile-caregiver'
+                  path="/profile-caregiver"
                   component={ProfileCaregiver}
                 />
                 <PrivateRoute
                   exact
-                  path='/add-caregiver-education'
+                  path="/add-caregiver-education"
                   component={AddEducation}
                 />
                 <PrivateRoute
                   exact
-                  path='/add-caregiver-certification'
+                  path="/add-caregiver-certification"
                   component={AddCertification}
                 />
               </Switch>
             </div>
-            <Route exact path='/services' component={Services} />
-            <Route exact path='/about' component={About} />
-            <Route exact path='/contact' component={Contact} />
-            <Route exact path='/help' component={Help} />
-            <Route exact path='/privacy' component={Privacy} />
-            <Route exact path='/terms' component={TermsOfUse} />
-            <Route exact path='/faq' component={Faq} />
+            <Route exact path="/services" component={Services} />
+            <Route exact path="/about" component={About} />
+            <Route exact path="/contact" component={Contact} />
+            <Route exact path="/help" component={Help} />
+            <Route exact path="/privacy" component={Privacy} />
+            <Route exact path="/terms" component={TermsOfUse} />
+            <Route exact path="/faq" component={Faq} />
             <Footer />
           </div>
         </Fragment>

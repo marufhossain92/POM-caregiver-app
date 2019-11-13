@@ -84,7 +84,7 @@ const Navbar = ({ auth: { isAuthenticated, loading }, logout }) => {
     <nav className='navbar navbar-expand-lg navbar-dark' style={styles}>
       <Link className='navbar-brand text-center font-italic' to='/'>
         <i className='fab fa-product-hunt' />
-        Peace of mind
+        eace of mind
       </Link>
       <button
         className='navbar-toggler'
